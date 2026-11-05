@@ -4,6 +4,7 @@ import { Suspense, type ReactNode } from 'react';
 import { Aviso } from '@/components/Aviso';
 import { Menu } from '@/components/Menu';
 import { carregar } from '@/lib/db';
+import { driveConectado } from '@/lib/drive';
 import { Data } from '@/dominio/Data';
 import './globals.css';
 
@@ -15,6 +16,7 @@ export const metadata: Metadata = { title: { default: 'Escritório', template: '
 export default async function Layout({ children }: { children: ReactNode }) {
   const d = await carregar();
   const hoje = Data.hoje();
+  const google = await driveConectado();
   const contadores = {
     '/prazos': d.prazos.filter((p) => !p.cumprido && p.vence.iso <= hoje.iso).length,
     '/intimacoes': d.intimacoes.filter((i) => i.pendente).length,
@@ -31,7 +33,14 @@ export default async function Layout({ children }: { children: ReactNode }) {
             </Link>
             <Menu contadores={contadores} />
           </header>
-          <main className="conteudo" id="conteudo">{children}</main>
+          <main className="conteudo" id="conteudo">
+            <div className="status-google">
+              <span className={`luz ${google ? 'ok' : 'off'}`} aria-hidden="true" />
+              {google ? 'Google conectado' : 'Google desconectado'}
+              {!google && <a className="btn mini" href="/api/google/conectar">Entrar com o Google</a>}
+            </div>
+            {children}
+          </main>
         </div>
         <Suspense><Aviso /></Suspense>
       </body>

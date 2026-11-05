@@ -56,6 +56,12 @@ h1 { font-family: var(--serifa); font-size: 1.85rem; font-weight: 600; }
 h2 { font-size: 1.1rem; font-weight: 650; }
 :focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; border-radius: 4px; }
 
+/* Status da conta Google, no canto de cima de todas as telas. */
+.status-google { display: flex; justify-content: flex-end; align-items: center; gap: .5rem; font-size: .88rem; color: var(--tinta-2); margin-bottom: .75rem; }
+.luz { width: .7rem; height: .7rem; border-radius: 50%; }
+.luz.ok { background: #1f9d55; }
+.luz.off { background: #d64545; }
+
 .pular { position: absolute; left: -999px; top: 0; background: var(--papel); padding: .75rem 1rem; z-index: 10; }
 .pular:focus { left: 1rem; top: 1rem; }
 .oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -207,7 +213,7 @@ tr.pago td { color: var(--tinta-2); }
 .codigo-pix { font-family: ui-monospace, monospace; font-size: .8rem; word-break: break-all; background: var(--fundo); padding: .75rem; border-radius: 8px; }
 
 @media print {
-  .lateral, .acoes, .item-acoes, .rodape-form, .toast { display: none !important; }
+  .lateral, .acoes, .item-acoes, .rodape-form, .toast, .status-google { display: none !important; }
   .estrutura { display: block; }
   .papel { box-shadow: none; }
 }

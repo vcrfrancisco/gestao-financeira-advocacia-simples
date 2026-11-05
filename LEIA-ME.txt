@@ -67,45 +67,165 @@ A pasta ".node" é só o Node.js baixado pelo programa; não precisa copiar.
 4. GOOGLE DRIVE (OPCIONAL)
 --------------------------
 
-Se quiser, cada documento gerado também vai para uma pasta chamada
-"Escritório – Documentos" no seu Google Drive. O programa só enxerga os
-arquivos que ele mesmo criou lá. É preciso configurar uma única vez:
+O QUE É: cada documento que você gerar (procuração, contrato) também vai
+para uma pasta chamada "Escritório – Documentos" no seu Google Drive.
+O programa só mexe nos arquivos que ele mesmo colocou lá.
 
-a) Entre em https://console.cloud.google.com com a sua conta Google e crie
-   um projeto (qualquer nome, por exemplo "Escritorio").
+COMO SABER SE ESTÁ LIGADO: em todas as telas do programa, lá em cima, no
+canto direito, tem uma bolinha:
 
-b) No menu, vá em "APIs e serviços" > "Biblioteca", procure
-   "Google Drive API" e clique em "Ativar".
+  bolinha VERDE    = "Google conectado". Está tudo certo.
+  bolinha VERMELHA = "Google desconectado". Do lado aparece o botão
+                     "Entrar com o Google".
 
-c) Vá em "Google Auth Platform" (ou "Tela de consentimento OAuth"):
-   - tipo de usuário: Externo;
-   - preencha o nome do app e o seu e-mail;
-   - em "Público", adicione o seu e-mail como usuário de teste.
+Antes de esse botão funcionar, é preciso fazer o cadastro abaixo UMA VEZ
+SÓ. Demora uns 15 minutos. Vá com calma, um passo de cada vez.
+(O Google às vezes muda um pouco os nomes dos botões. Se um nome estiver
+um pouquinho diferente, procure o mais parecido.)
 
-d) Vá em "Clientes" (ou "Credenciais") > "Criar cliente" (ID do cliente
-   OAuth):
-   - tipo de aplicativo: Aplicativo da Web;
-   - em "URIs de redirecionamento autorizados", adicione exatamente:
+
+PASSO 1 - Entrar no site do Google para programas
+.................................................
+
+  1. Abra o navegador e entre neste endereço:
+        https://console.cloud.google.com
+  2. Se pedir, entre com a sua conta Google (o mesmo e-mail do Gmail).
+  3. Se aparecer uma tela de boas-vindas, marque que concorda com os
+     termos e clique em "Concordar e continuar".
+
+
+PASSO 2 - Criar uma "caixinha" (projeto) para o programa
+........................................................
+
+  1. Bem no alto da tela, à esquerda, tem um botão com o nome de um
+     projeto ou escrito "Selecione um projeto". Clique nele.
+  2. Abre uma janelinha. No canto de cima dela, clique em "Novo projeto".
+  3. Em "Nome do projeto", escreva:  Escritorio
+  4. Clique no botão azul "Criar".
+  5. Espere uns segundos. Aparece um aviso no sininho, lá em cima.
+     Clique no botão do alto de novo e escolha o projeto "Escritorio".
+     Confira: o nome "Escritorio" tem que aparecer lá no alto.
+
+
+PASSO 3 - Ligar o Google Drive nessa caixinha
+.............................................
+
+  1. Na barra de busca, lá em cima no meio, escreva:  Google Drive API
+  2. Clique no resultado "Google Drive API" (tem o desenho do Drive).
+  3. Clique no botão azul "Ativar".
+  4. Pronto quando o botão virar "Gerenciar".
+
+
+PASSO 4 - Dizer ao Google quem é o programa
+...........................................
+
+  1. Na barra de busca lá em cima, escreva:  Google Auth Platform
+     e clique no resultado.
+  2. Clique no botão "Vamos começar" (ou "Começar").
+  3. Tela "Informações do app":
+       - Nome do app: escreva  Escritorio
+       - E-mail para suporte do usuário: escolha o seu e-mail na lista.
+       - Clique em "Próxima".
+  4. Tela "Público-alvo": marque "Externo". Clique em "Próxima".
+  5. Tela "Dados de contato": escreva o seu e-mail. Clique em "Próxima".
+  6. Tela "Concluir": marque a caixinha que concorda com a política.
+     Clique em "Continuar" e depois no botão azul "Criar".
+
+
+PASSO 5 - Deixar o seu e-mail entrar
+....................................
+
+  1. No menu da esquerda, clique em "Público-alvo".
+  2. Desça a tela até "Usuários de teste".
+  3. Clique em "+ Add users" (ou "Adicionar usuários").
+  4. Escreva o seu e-mail (o mesmo que vai usar no Drive).
+  5. Clique em "Salvar".
+
+
+PASSO 6 - Pegar as duas "senhas do programa"
+............................................
+
+  1. No menu da esquerda, clique em "Clientes".
+  2. Clique em "+ Criar cliente".
+  3. Em "Tipo de aplicativo", escolha  "Aplicativo da Web".
+  4. Em "Nome", pode deixar como está.
+  5. Desça até "URIs de redirecionamento autorizados" e clique em
+     "+ Adicionar URI". Na caixinha que aparece, cole EXATAMENTE isto
+     (sem espaço antes nem depois):
         http://localhost:3000/api/google/callback
-   - clique em Criar. Aparecem o "ID do cliente" e a "Chave secreta".
+     Cuidado: NÃO é a caixinha de "Origens JavaScript autorizadas", que
+     fica logo acima.
+  6. Clique no botão azul "Criar".
+  7. Abre uma janela com duas coisas importantes:
+       - "ID do cliente"   (um texto comprido que termina em
+                            .apps.googleusercontent.com)
+       - "Chave secreta do cliente" (começa com GOCSPX-)
+     ATENÇÃO: a chave secreta pode não aparecer de novo depois que você
+     fechar essa janela. Clique em "Fazer download do JSON" para guardar
+     uma cópia, ou deixe a janela aberta até terminar o passo 7.
 
-e) Na pasta do programa, faça uma cópia do arquivo ".env.example" com o
-   nome ".env.local" e preencha (sem espaços):
 
-      GOOGLE_CLIENT_ID=cole-aqui-o-id-do-cliente
-      GOOGLE_CLIENT_SECRET=cole-aqui-a-chave-secreta
+PASSO 7 - Entregar as duas senhas para o programa
+.................................................
 
-f) Feche e abra o programa de novo (item 1). Em "Ajustes" > "Google Drive",
-   clique em "Ligar" e depois em "Conectar conta Google".
+Vamos criar um arquivo chamado  .env.local  dentro da pasta do programa.
 
-Avisos do Google:
-  - Se aparecer "o Google não verificou este app", é normal: o app é seu.
-    Clique em "Avançado" > "Acessar".
-  - Enquanto o app estiver "em teste" no Google, ele pede para conectar de
-    novo a cada 7 dias. Para não pedir mais, em "Público" clique em
-    "Publicar app".
-  - Para parar de enviar ao Drive, clique em "Desligar" em Ajustes. Os
-    documentos continuam sendo guardados no computador.
+  1. Abra a pasta do programa (a mesma onde está o Abrir-Escritorio).
+     LINUX: se não enxergar o arquivo ".env.example", aperte Ctrl+H
+     para mostrar os arquivos escondidos.
+  2. Clique com o botão direito em  .env.example  e abra com o
+     Bloco de Notas (Windows) ou o Editor de Texto (Linux).
+  3. Você vai ver estas linhas:
+        GOOGLE_CLIENT_ID=
+        GOOGLE_CLIENT_SECRET=
+  4. Logo depois do "=" da primeira linha, cole o "ID do cliente".
+     Logo depois do "=" da segunda linha, cole a "Chave secreta".
+     Sem espaços e sem aspas. Fica assim:
+        GOOGLE_CLIENT_ID=123456-abcdef.apps.googleusercontent.com
+        GOOGLE_CLIENT_SECRET=GOCSPX-xxxxxxxxxxxx
+     Não apague a terceira linha (GOOGLE_REDIRECT_URI=...).
+  5. NÃO clique em "Salvar". Clique em "Arquivo" > "Salvar como".
+  6. No nome do arquivo, escreva:  .env.local
+     WINDOWS: em "Tipo", escolha "Todos os arquivos (*.*)". Se não fizer
+     isso, o Windows coloca ".txt" no final e não funciona.
+  7. Clique em "Salvar".
+
+
+PASSO 8 - Conectar!
+...................
+
+  1. Feche a janela preta do programa e abra o programa de novo (item 1).
+  2. Olhe o canto de cima, à direita: bolinha vermelha e o botão
+     "Entrar com o Google". Clique nele.
+  3. O Google pergunta qual conta usar. Escolha o seu e-mail.
+  4. Aparece "O Google não verificou este app". É normal: o app é seu.
+     Clique em "Avançado" (ou "Continuar"), depois em
+     "Acessar Escritorio (não seguro)".
+  5. O Google mostra o que o programa vai poder fazer. Clique em
+     "Continuar".
+  6. Você volta para o programa. A bolinha fica VERDE. Pronto!
+     A partir de agora, os documentos também vão para o Drive.
+
+
+SE ALGO DER ERRADO
+..................
+
+  - Clicou em "Entrar com o Google" e voltou dizendo que falta configurar:
+    o arquivo .env.local não foi achado. Confira o nome (com o ponto no
+    começo e sem .txt no final) e se ele está na pasta do programa.
+    Depois feche e abra o programa de novo.
+  - O Google mostrou "Erro 400: redirect_uri_mismatch": o endereço do
+    passo 6, item 5, foi colado diferente. Volte em "Clientes", clique no
+    cliente e confira letra por letra.
+  - O Google mostrou "Acesso bloqueado": faltou o passo 5 (colocar o seu
+    e-mail em "Usuários de teste").
+  - A bolinha voltou a ficar vermelha depois de uns dias: enquanto o app
+    está "em teste", o Google pede para entrar de novo a cada 7 dias.
+    Clique em "Entrar com o Google" de novo. Para não pedir mais: no
+    Google Auth Platform, vá em "Público-alvo" e clique em "Publicar app".
+
+Para parar de mandar documentos ao Drive: em "Ajustes" > "Google Drive",
+clique em "Desligar". Os documentos continuam guardados no computador.
 
 
 5. CRÉDITOS
