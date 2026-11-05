@@ -1,0 +1,115 @@
+ESCRITÓRIO - GESTÃO DO ESCRITÓRIO DE ADVOCACIA
+===============================================
+
+Programa para controlar prazos, intimações, agenda, processos, clientes,
+honorários e gerar documentos (procuração, contrato) em Word ou em texto.
+Funciona no seu computador, pelo navegador (Chrome, Edge, Firefox).
+
+
+1. ABRIR O PROGRAMA
+-------------------
+
+WINDOWS: dê dois cliques no arquivo  Abrir-Escritorio.bat
+LINUX:   clique com o botão direito em  Abrir-Escritorio.sh  e escolha
+         "Executar como programa".
+
+Abre uma janela preta e, logo depois, o programa no navegador.
+
+  - Deixe a janela preta aberta enquanto usa o programa (pode minimizar).
+  - Para fechar o programa, feche a janela preta.
+  - Se fechar o navegador sem querer, clique de novo no arquivo: ele só
+    reabre a página.
+
+Na PRIMEIRA VEZ demora alguns minutos, e é preciso estar com internet:
+o programa baixa o que precisa e se prepara sozinho. Depois disso, abre
+em poucos segundos. Não é preciso instalar nada.
+
+Se o Windows mostrar "O Windows protegeu o computador", clique em
+"Mais informações" e depois em "Executar assim mesmo".
+
+Dica: para ter um atalho na Área de Trabalho, clique com o botão direito
+no arquivo e escolha "Enviar para" > "Área de trabalho (criar atalho)".
+
+O endereço do programa no navegador é  http://localhost:3000
+
+
+2. COMEÇANDO
+------------
+
+Na primeira vez, vá em "Ajustes" e preencha:
+  - seu nome, OAB e cidade (aparecem nas procurações e contratos);
+  - sua chave Pix (para as mensagens de cobrança);
+  - o estado e o município onde você atua (os feriados de lá passam a ser
+    descontados nos prazos automaticamente).
+
+Depois cadastre os clientes e os processos. Ao colar o número do processo,
+o tribunal é preenchido sozinho.
+
+O cálculo de prazos é uma ajuda: confira sempre no sistema do tribunal.
+
+
+3. ONDE FICAM OS SEUS DADOS
+---------------------------
+
+Tudo fica neste computador, dentro da pasta do programa:
+
+  data\          planilhas com clientes, processos, prazos, financeiro etc.
+                 (arquivos .csv: abrem no Excel ou no LibreOffice)
+  documentos\    procurações e contratos gerados (.docx e .txt)
+
+CÓPIA DE SEGURANÇA: copie as pastas "data" e "documentos" para um pendrive
+ou para a nuvem de vez em quando. Para restaurar, coloque-as de volta.
+
+Evite editar os arquivos .csv com o programa aberto.
+A pasta ".node" é só o Node.js baixado pelo programa; não precisa copiar.
+
+
+4. GOOGLE DRIVE (OPCIONAL)
+--------------------------
+
+Se quiser, cada documento gerado também vai para uma pasta chamada
+"Escritório – Documentos" no seu Google Drive. O programa só enxerga os
+arquivos que ele mesmo criou lá. É preciso configurar uma única vez:
+
+a) Entre em https://console.cloud.google.com com a sua conta Google e crie
+   um projeto (qualquer nome, por exemplo "Escritorio").
+
+b) No menu, vá em "APIs e serviços" > "Biblioteca", procure
+   "Google Drive API" e clique em "Ativar".
+
+c) Vá em "Google Auth Platform" (ou "Tela de consentimento OAuth"):
+   - tipo de usuário: Externo;
+   - preencha o nome do app e o seu e-mail;
+   - em "Público", adicione o seu e-mail como usuário de teste.
+
+d) Vá em "Clientes" (ou "Credenciais") > "Criar cliente" (ID do cliente
+   OAuth):
+   - tipo de aplicativo: Aplicativo da Web;
+   - em "URIs de redirecionamento autorizados", adicione exatamente:
+        http://localhost:3000/api/google/callback
+   - clique em Criar. Aparecem o "ID do cliente" e a "Chave secreta".
+
+e) Na pasta do programa, faça uma cópia do arquivo ".env.example" com o
+   nome ".env.local" e preencha (sem espaços):
+
+      GOOGLE_CLIENT_ID=cole-aqui-o-id-do-cliente
+      GOOGLE_CLIENT_SECRET=cole-aqui-a-chave-secreta
+
+f) Feche e abra o programa de novo (item 1). Em "Ajustes" > "Google Drive",
+   clique em "Ligar" e depois em "Conectar conta Google".
+
+Avisos do Google:
+  - Se aparecer "o Google não verificou este app", é normal: o app é seu.
+    Clique em "Avançado" > "Acessar".
+  - Enquanto o app estiver "em teste" no Google, ele pede para conectar de
+    novo a cada 7 dias. Para não pedir mais, em "Público" clique em
+    "Publicar app".
+  - Para parar de enviar ao Drive, clique em "Desligar" em Ajustes. Os
+    documentos continuam sendo guardados no computador.
+
+
+5. CRÉDITOS
+-----------
+
+Feriados estaduais e municipais: base do projeto feriados.dev
+(https://feriados.dev), licença MIT. Veja src/dados/LICENCA-feriados-dev.txt.

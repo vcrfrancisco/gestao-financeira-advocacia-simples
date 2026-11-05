@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dados e documentos do escritório ficam só nesta máquina
+/data/
+/documentos/
+
+# Node.js baixado pelo Abrir-Escritorio (quando o computador não tem um instalado)
+/.node/
+/.node-baixando/
